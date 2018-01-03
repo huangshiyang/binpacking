@@ -48,18 +48,63 @@ public class BinPacking {
             }
             if (min == capacity) {
                 arrayBins.add(capacity - weight.get(i));
-            }else {
-                arrayBins.set(binIndex,arrayBins.get(binIndex)-weight.get(i));
+            } else {
+                arrayBins.set(binIndex, arrayBins.get(binIndex) - weight.get(i));
             }
         }
         return arrayBins.size();
     }
 
     static int worstFit(List<Integer> weight, int capacity) {
-        return 0;
+        ArrayList<Integer> arrayBins = new ArrayList<>();
+        for (int i = 0; i < weight.size(); i++) {
+            int j;
+            int max = -1;
+            int binIndex = 0;
+            for (j = 0; j < arrayBins.size(); j++) {
+                if (arrayBins.get(j) >= weight.get(i) && arrayBins.get(j) - weight.get(i) > max) {
+                    binIndex = j;
+                    max = arrayBins.get(j) - weight.get(i);
+                }
+            }
+            if (max == -1) {
+                arrayBins.add(capacity - weight.get(i));
+            } else {
+                arrayBins.set(binIndex, arrayBins.get(binIndex) - weight.get(i));
+            }
+        }
+        return arrayBins.size();
     }
 
     static int almostWorstFit(List<Integer> weight, int capacity) {
-        return 0;
+        ArrayList<Integer> arrayBins = new ArrayList<>();
+        for (int i = 0; i < weight.size(); i++) {
+            int j;
+            int max = -1;
+            int max2 = -1;
+            int binIndex = 0;
+            int binIndex2 = 0;
+            for (j = 0; j < arrayBins.size(); j++) {
+                if (arrayBins.get(j) >= weight.get(i) && arrayBins.get(j) - weight.get(i) > max2) {
+                    if (arrayBins.get(j) - weight.get(i) > max) {
+                        binIndex2 = binIndex;
+                        binIndex = j;
+                        max2 = max;
+                        max = arrayBins.get(j) - weight.get(i);
+                    } else {
+                        binIndex2 = j;
+                        max2 = arrayBins.get(j) - weight.get(i);
+                    }
+                }
+            }
+            if (max == -1) {
+                arrayBins.add(capacity - weight.get(i));
+            } else if (max2 == -1) {
+                arrayBins.set(binIndex, arrayBins.get(binIndex) - weight.get(i));
+            } else {
+                arrayBins.set(binIndex2, arrayBins.get(binIndex2) - weight.get(i));
+            }
+        }
+        return arrayBins.size();
     }
 }
