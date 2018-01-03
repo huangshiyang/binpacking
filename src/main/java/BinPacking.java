@@ -18,16 +18,17 @@ public class BinPacking {
     }
 
     static int firstFit(List<Integer> weight, int capacity) {
-        ArrayList<Integer> arrayBins = new ArrayList<Integer>();
-        arrayBins.add(capacity);
-        int j = 0;
+        ArrayList<Integer> arrayBins = new ArrayList<>();
         for (int i = 0; i < weight.size(); i++) {
-            j = isPlace(weight.get(i), arrayBins);
-            System.out.println("j : " + j);
-            if (j >= 0) {
-                arrayBins.set(j, arrayBins.get(j) - weight.get(i));
-            } else {
-                arrayBins.add(100);
+            int j;
+            for (j = 0; j < arrayBins.size(); j++) {
+                if (arrayBins.get(j) >= weight.get(i)) {
+                    arrayBins.set(j, arrayBins.get(j) - weight.get(i));
+                    break;
+                }
+            }
+            if (j == arrayBins.size()) {
+                arrayBins.add(capacity - weight.get(i));
             }
         }
         return arrayBins.size();
@@ -43,14 +44,5 @@ public class BinPacking {
 
     static int almostWorstFit(List<Integer> weight, int capacity) {
         return 0;
-    }
-
-    static int isPlace(Integer weight, List<Integer> arrayBins) {
-        for (int j = 0; j < arrayBins.size(); j++) {
-            if (weight < arrayBins.get(j)) {
-                return j;
-            }
-        }
-        return -1;
     }
 }
