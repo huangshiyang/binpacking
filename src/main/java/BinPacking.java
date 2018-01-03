@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class BinPacking {
 
@@ -23,7 +24,6 @@ public class BinPacking {
         int j = 0;
         for (int i = 0; i < weight.size(); i++) {
             j = isPlace(weight.get(i), arrayBins);
-            System.out.println("j : " + j);
             if (j >= 0) {
                 arrayBins.set(j, arrayBins.get(j) - weight.get(i));
             } else {
