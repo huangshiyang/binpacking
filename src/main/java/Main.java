@@ -9,15 +9,18 @@ public class Main {
         List<String> lines = new ArrayList<>();
         List<Integer> weight = new ArrayList<>();
         int capacity = 0;
-        Files.lines(Paths.get("../resources/exemple100.txt")).forEach(lines::add);
+        Files.lines(Paths.get("../resources/exemple1000.txt")).forEach(lines::add);
         capacity = Integer.parseInt(lines.get(1));
         String[] strings = lines.get(3).substring(0, lines.get(3).length() - 1).replace(" ", "").split(",");
         for (int i = 0; i < strings.length; i++) {
             weight.add(Integer.parseInt(strings[i]));
         }
-        int nBin = BinPacking.nextFit(weight, capacity);
-        System.out.println(nBin);
-        nBin = BinPacking.firstFit(weight, capacity);
-        System.out.println(nBin);
+        System.out.println(BinPacking.nextFit(weight, capacity));
+        System.out.println(BinPacking.firstFit(weight, capacity));
+        System.out.println(BinPacking.bestFit(weight, capacity));
+        System.out.println(BinPacking.worstFit(weight, capacity));
+        System.out.println(BinPacking.almostWorstFit(weight, capacity));
+
+        System.out.println(BinPacking2.bestFit(weight, capacity));
     }
 }
