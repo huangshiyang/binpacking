@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static void packingAlgorithms(Pack p) {
@@ -42,6 +43,14 @@ public class Main {
         System.out.print(p);
         endTime = System.currentTimeMillis();
         System.out.println("Elapsed time: " + (endTime - startTime) + " ms.\n");
+    }
+
+    public static List<Integer> generateWeight(int number, int capacity) {
+        List<Integer> weight = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            weight.add(ThreadLocalRandom.current().nextInt(0, capacity + 1));
+        }
+        return weight;
     }
 
     public static void main(String[] args) throws IOException {
