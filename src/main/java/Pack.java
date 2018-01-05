@@ -125,4 +125,8 @@ public class Pack {
             total += i;
         return (int) Math.ceil(total / capacity);
     }
+
+    public int getNumberOfBins() {
+        return bins.size();
+    }
 }
