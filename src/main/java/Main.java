@@ -13,39 +13,39 @@ public class Main {
         long startTime, endTime;
 
         System.out.println("Next Fit:");
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
         p.nextFit();
-        endTime = System.currentTimeMillis();
+        endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (endTime - startTime) + " ms.\n");
+        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
 
         System.out.println("First Fit:");
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
         p.firstFit();
-        endTime = System.currentTimeMillis();
+        endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (endTime - startTime) + " ms.\n");
+        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
 
         System.out.println("Best Fit:");
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
         p.bestFit();
-        endTime = System.currentTimeMillis();
+        endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (endTime - startTime) + " ms.\n");
+        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
 
         System.out.println("Worst Fit:");
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
         p.worstFit();
-        endTime = System.currentTimeMillis();
+        endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (endTime - startTime) + " ms.\n");
+        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
 
         System.out.println("Almost Worst Fit:");
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
         p.almostWorstFit();
-        endTime = System.currentTimeMillis();
+        endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (endTime - startTime) + " ms.\n");
+        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
     }
 
     public static List<Integer> generateWeight(int number, int capacity, int distribution) {
@@ -83,34 +83,34 @@ public class Main {
         List<Integer> weight;
 
         long startTime, endTime, duration;
-        for (int i = 100; i < 10000; i += 100) {
+        for (int i = 100; i <= 1000000; i *= 10) {
             weight = generateWeight(i, capacity, distributin);
             p = new Pack(weight, capacity);
-            startTime = System.currentTimeMillis();
+            startTime = System.nanoTime();
             p.nextFit();
-            endTime = System.currentTimeMillis();
+            endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerNextFit.println(i + " " + p.getNumberOfBins() + " " + duration);
-            startTime = System.currentTimeMillis();
+            writerNextFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            startTime = System.nanoTime();
             p.firstFit();
-            endTime = System.currentTimeMillis();
+            endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerFirstFit.println(i + " " + p.getNumberOfBins() + " " + duration);
-            startTime = System.currentTimeMillis();
+            writerFirstFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            startTime = System.nanoTime();
             p.bestFit();
-            endTime = System.currentTimeMillis();
+            endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerBestFit.println(i + " " + p.getNumberOfBins() + " " + duration);
-            startTime = System.currentTimeMillis();
+            writerBestFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            startTime = System.nanoTime();
             p.worstFit();
-            endTime = System.currentTimeMillis();
+            endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerWorstFit.println(i + " " + p.getNumberOfBins() + " " + duration);
-            startTime = System.currentTimeMillis();
+            writerWorstFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            startTime = System.nanoTime();
             p.almostWorstFit();
-            endTime = System.currentTimeMillis();
+            endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerAlmostWorstFit.println(i + " " + p.getNumberOfBins() + " " + duration);
+            writerAlmostWorstFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
         }
         writerNextFit.close();
         writerFirstFit.close();
