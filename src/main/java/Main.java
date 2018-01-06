@@ -17,35 +17,35 @@ public class Main {
         p.nextFit();
         endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
+        System.out.println("Elapsed time: " + (double) (endTime - startTime) / 1000000.0 + " ms.\n");
 
         System.out.println("First Fit:");
         startTime = System.nanoTime();
         p.firstFit();
         endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
+        System.out.println("Elapsed time: " + (double) (endTime - startTime) / 1000000.0 + " ms.\n");
 
         System.out.println("Best Fit:");
         startTime = System.nanoTime();
         p.bestFit();
         endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
+        System.out.println("Elapsed time: " + (double) (endTime - startTime) / 1000000.0 + " ms.\n");
 
         System.out.println("Worst Fit:");
         startTime = System.nanoTime();
         p.worstFit();
         endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
+        System.out.println("Elapsed time: " + (double) (endTime - startTime) / 1000000.0 + " ms.\n");
 
         System.out.println("Almost Worst Fit:");
         startTime = System.nanoTime();
         p.almostWorstFit();
         endTime = System.nanoTime();
         System.out.print(p);
-        System.out.println("Elapsed time: " + (double)(endTime - startTime)/1000000.0 + " ms.\n");
+        System.out.println("Elapsed time: " + (double) (endTime - startTime) / 1000000.0 + " ms.\n");
     }
 
     public static List<Integer> generateWeight(int number, int capacity, int distribution) {
@@ -69,11 +69,14 @@ public class Main {
         File fileBestFit = new File("src/main/result/testBestFit.txt");
         File fileWorstFit = new File("src/main/result/testWorstFit.txt");
         File fileAlmostWorstFit = new File("src/main/result/testAlmostWorstFit.txt");
+        File fileIdeal = new File("src/main/result/testIdeal.txt");
+        fileIdeal.getParentFile().mkdirs();
         fileNextFit.getParentFile().mkdirs();
         fileFirstFit.getParentFile().mkdirs();
         fileBestFit.getParentFile().mkdirs();
         fileWorstFit.getParentFile().mkdirs();
         fileAlmostWorstFit.getParentFile().mkdirs();
+        PrintWriter writerIdeal = new PrintWriter(fileIdeal);
         PrintWriter writerNextFit = new PrintWriter(fileNextFit);
         PrintWriter writerFirstFit = new PrintWriter(fileFirstFit);
         PrintWriter writerBestFit = new PrintWriter(fileBestFit);
@@ -86,32 +89,34 @@ public class Main {
         for (int i = 100; i <= 1000000; i *= 10) {
             weight = generateWeight(i, capacity, distributin);
             p = new Pack(weight, capacity);
+            writerIdeal.println(i + " " + p.getIdeal());
             startTime = System.nanoTime();
             p.nextFit();
             endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerNextFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            writerNextFit.println(i + " " + p.getNumberOfBins() + " " + (double) duration / 1000000.0);
             startTime = System.nanoTime();
             p.firstFit();
             endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerFirstFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            writerFirstFit.println(i + " " + p.getNumberOfBins() + " " + (double) duration / 1000000.0);
             startTime = System.nanoTime();
             p.bestFit();
             endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerBestFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            writerBestFit.println(i + " " + p.getNumberOfBins() + " " + (double) duration / 1000000.0);
             startTime = System.nanoTime();
             p.worstFit();
             endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerWorstFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            writerWorstFit.println(i + " " + p.getNumberOfBins() + " " + (double) duration / 1000000.0);
             startTime = System.nanoTime();
             p.almostWorstFit();
             endTime = System.nanoTime();
             duration = endTime - startTime;
-            writerAlmostWorstFit.println(i + " " + p.getNumberOfBins() + " " + (double)duration/1000000.0);
+            writerAlmostWorstFit.println(i + " " + p.getNumberOfBins() + " " + (double) duration / 1000000.0);
         }
+        writerIdeal.close();
         writerNextFit.close();
         writerFirstFit.close();
         writerBestFit.close();
